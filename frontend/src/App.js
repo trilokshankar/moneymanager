@@ -1,23 +1,25 @@
-
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './auth/login';
+import Logout from './auth/logout';
+import ForgotPassword from './auth/Forgotpassword';
+import Navbar from './navbar/navbar';
+import Expenses from './pages/expenses';
+import FilterByTag from './pages/filterbyTag';
+import './styles/App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> anave to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/forgot" element={<ForgotPassword />} />
+        <Route path="/expenses" element={<Expenses />} />
+        <Route path="/filter" element={<FilterByTag />} />
+      </Routes>
+    </Router>
   );
 }
 
