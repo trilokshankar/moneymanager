@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Login from './auth/Login';
 import Logout from './auth/logout';
-import ForgotPassword from './auth/Forgotpassword';
+import ForgotPassword from './auth/temp';
 import Navbar from './navbar/navbar';
 import Expenses from './pages/expenses';
 import FilterByTags from './pages/filterbyTags';
