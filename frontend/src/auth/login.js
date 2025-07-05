@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ForgotPassword from'ForgotPassword';
+import ForgotPassword from "./ForgotPassword";
 import "../styles/login.css"
 
 function Login() {
@@ -9,7 +9,6 @@ function Login() {
   const [showReset, setShowReset] = useState(false);
   const navigate = useNavigate();
 
-  // 🔐 Login Function
   const handleLogin = async () => {
     if (!username || !password) {
       alert("Please enter both username and password.");
@@ -62,12 +61,10 @@ function Login() {
     }
   };
 
-  // 🛠 Conditional Reset View
   if (showReset) {
     return <ForgotPassword goBack={() => setShowReset(false)} />;
   }
 
-  // 🧾 Main Login Form
   return (
     <div className="login-box">
       <h2>Login / Signup</h2>

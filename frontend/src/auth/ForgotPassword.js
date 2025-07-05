@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/login.css";
+
 function ForgotPassword({ goBack }) {
   const [username, setUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -15,7 +16,7 @@ function ForgotPassword({ goBack }) {
       const data = await res.json();
       if (res.ok) {
         alert("Password updated successfully");
-        goBack(); 
+        goBack();
       } else {
         alert(data.message || "Reset failed");
       }
