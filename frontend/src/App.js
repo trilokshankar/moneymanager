@@ -5,7 +5,7 @@ import Logout from './auth/logout';
 import ForgotPassword from './auth/Forgotpassword';
 import Navbar from './navbar/navbar';
 import Expenses from './pages/expenses';
-import FilterByTag from './pages/filterbyTag';
+import FilterByTag from './pages/filterbyTags';
 import './styles/App.css';
 
 function App() {

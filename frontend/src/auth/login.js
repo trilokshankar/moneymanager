@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import "./Forgotpassword.js"
+import ForgotPassword from "./Forgotpassword";
 
 function Login({onLogin}){
   const [username, setUsername] = useState("");
