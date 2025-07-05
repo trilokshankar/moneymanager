@@ -1,6 +1,6 @@
 function Logout({ onLogout }) {
     const handleLogout = async () => {
-      await fetch("https://mongodb-production-9fea.up.railway.app/logout", {
+      await fetch("https://money-manager-production-7bea.up.railway.app/logout", {
         method: "POST"
       });
       onLogout();

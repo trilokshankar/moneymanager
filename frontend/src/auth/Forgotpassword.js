@@ -6,7 +6,7 @@ function ForgotPassword({ goBack }) {
 
   const handleReset = async () => {
     try {
-      const res = await fetch("https://mongodb-production-9fea.up.railway.app/forgot-password", {
+      const res = await fetch("https://money-manager-production-7bea.up.railway.app//forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, newPassword }),
