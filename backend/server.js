@@ -14,7 +14,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-mongoose.connect("mongodb+srv://xyz:<db_password>@money.4yejspr.mongodb.net/?retryWrites=true&w=majority&appName=money")
+mongoose.connect("mongodb+srv://xyz:123@money.4yejspr.mongodb.net/?retryWrites=true&w=majority&appName=money")
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error(err));
 
