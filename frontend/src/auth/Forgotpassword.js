@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-
+import "../styles/login.css";
 function ForgotPassword({ goBack }) {
   const [username, setUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
   const handleReset = async () => {
     try {
-      const res = await fetch("https://money-manager-production-7bea.up.railway.app//forgot-password", {
+      const res = await fetch("https://money-manager-production-7bea.up.railway.app/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, newPassword }),
