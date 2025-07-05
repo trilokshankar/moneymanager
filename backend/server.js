@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
-const Task = require("./Task");
+const Money = require("./money"); 
 const User = require("./user");
 
 const app = express();
@@ -12,13 +12,13 @@ app.use(cors({
   origin: "https://money-manager-coral.vercel.app/",
   credentials: true
 }));
-
 app.use(express.json());
 
 mongoose.connect("mongodb+srv://xyz:<db_password>@money.4yejspr.mongodb.net/?retryWrites=true&w=majority&appName=money")
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error(err));
 
+// Authentication Routes
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username, password });
@@ -39,56 +39,48 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/forgot-password", async (req, res) => {
-    const { username, newPassword } = req.body;
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    user.password = newPassword;
-    await user.save();
-    res.json({ success: true, message: "Password updated successfully" });
-  });
-  
-app.get("/tasks", async (req, res) => {
-  const { userId } = req.query;
-  const tasks = await Task.find({ userId });
-  res.json(tasks);
-});
-
-app.post("/tasks", async (req, res) => {
-  const { title, date, completed, userId } = req.body;
-  const task = new Task({ title, date, completed, userId });
-  await task.save();
-  res.json(task);
-});
-
-app.put("/tasks/:id", async (req, res) => {
-  const task = await Task.findById(req.params.id);
-  task.title = req.body.title ?? task.title;
-  task.date = req.body.date ?? task.date;
-  task.completed = req.body.completed ?? task.completed;
-  await task.save();
-  res.json(task);
-});
-
-app.delete("/tasks/:id", async (req, res) => {
-  const task = await Task.findById(req.params.id);
-  await task.deleteOne();
-  res.json(task);
-});
-
-app.post("/forgot-password", async (req, res) => {
   const { username, newPassword } = req.body;
   const user = await User.findOne({ username });
-
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
+  if (!user) return res.status(404).json({ message: "User not found" });
 
   user.password = newPassword;
   await user.save();
-
   res.json({ success: true, message: "Password updated successfully" });
+});
+
+// Expense Routes
+app.get("/expenses", async (req, res) => {
+  const { userId } = req.query;
+  const expenses = await Money.find({ userId });
+  res.json(expenses);
+});
+
+app.post("/expenses", async (req, res) => {
+  const { amount, category, tag, note, userId } = req.body;
+  const newExpense = new Money({ amount, category, tag, note, userId });
+  await newExpense.save();
+  res.json(newExpense);
+});
+
+app.put("/expenses/:id", async (req, res) => {
+  const expense = await Money.findById(req.params.id);
+  if (!expense) return res.status(404).json({ message: "Expense not found" });
+
+  expense.amount = req.body.amount ?? expense.amount;
+  expense.category = req.body.category ?? expense.category;
+  expense.tag = req.body.tag ?? expense.tag;
+  expense.note = req.body.note ?? expense.note;
+
+  await expense.save();
+  res.json(expense);
+});
+
+app.delete("/expenses/:id", async (req, res) => {
+  const expense = await Money.findById(req.params.id);
+  if (!expense) return res.status(404).json({ message: "Expense not found" });
+
+  await expense.deleteOne();
+  res.json({ success: true });
 });
 
 app.get("/", (req, res) => {
