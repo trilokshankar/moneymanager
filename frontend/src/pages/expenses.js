@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../styles/App.css"
+import "../styles/App.css";
+
 function Expenses() {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
@@ -7,20 +8,24 @@ function Expenses() {
   const [expenses, setExpenses] = useState([]);
   const userId = localStorage.getItem("userId");
 
+  // 🔁 Fetch all expenses for this user
   const fetchExpenses = async () => {
     try {
       const res = await fetch(`https://money-manager-production-7bea.up.railway.app/expenses?userId=${userId}`);
       const data = await res.json();
+
       if (res.ok) {
         setExpenses(data);
       } else {
         alert("Failed to fetch expenses");
       }
     } catch (err) {
+      console.error("Error fetching expenses:", err);
       alert("Error fetching expenses");
     }
   };
 
+  // ➕ Submit a new expense
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -55,17 +60,22 @@ function Expenses() {
         alert(data.message || "Failed to add expense");
       }
     } catch (err) {
+      console.error("Error submitting expense:", err);
       alert("Error submitting expense");
     }
   };
 
+  // ⏳ On load, fetch expenses
   useEffect(() => {
     if (userId) {
       fetchExpenses();
-    } else {
-      alert("Please login first");
     }
-  }, []);
+  }, [userId]);
+
+  // 🚫 Not logged in case
+  if (!userId) {
+    return <p>Please login first.</p>;
+  }
 
   return (
     <div className="expenses-container">
@@ -93,13 +103,17 @@ function Expenses() {
       </form>
 
       <h3>Your Expenses</h3>
-      <ul>
-        {expenses.map((exp, index) => (
-          <li key={index}>
-            ₹{exp.amount} - {exp.category} - {exp.description}
-          </li>
-        ))}
-      </ul>
+      {Array.isArray(expenses) && expenses.length > 0 ? (
+        <ul>
+          {expenses.map((exp, index) => (
+            <li key={index}>
+              ₹{exp.amount} - {exp.category} - {exp.description}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No expenses found.</p>
+      )}
     </div>
   );
 }

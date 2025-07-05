@@ -1,38 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Login from './auth/Login.js';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './auth/Login';
 import Logout from './auth/logout';
-import ForgotPassword from './auth/ForgotPassword.js';
+import ForgotPassword from './auth/ForgotPassword';
 import Navbar from './navbar/navbar';
-import Expenses from './pages/expenses.js';
+import Expenses from './pages/expenses';
 import FilterByTags from './pages/filterbyTags';
 import './styles/App.css';
-
-// Custom wrapper to show/hide Navbar based on route
-function AppRoutes() {
-  const location = useLocation();
-  const hideNavbarRoutes = ['/', '/forgot'];
-
-  const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
-
-  return (
-    <>
-      {!shouldHideNavbar && <Navbar />}
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/forgot" element={<ForgotPassword />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/expenses" element={<Expenses />} />
-        <Route path="/filter" element={<FilterByTags />} />
-      </Routes>
-    </>
-  );
-}
 
 function App() {
   return (
     <Router>
-      <AppRoutes />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/forgot" element={<ForgotPassword />} />
+        <Route path="/expenses" element={<Expenses />} />
+        <Route path="/filter" element={<FilterByTags />} />
+      </Routes>
     </Router>
   );
 }

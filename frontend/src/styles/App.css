@@ -77,4 +77,46 @@
       align-items: flex-start;
     }
   }
+  .filter-container {
+    max-width: 500px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 12px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filter-form input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .filter-form button {
+    padding: 10px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .filtered-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .filtered-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+  }
   
