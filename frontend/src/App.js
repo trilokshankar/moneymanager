@@ -1,30 +1,29 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Login from './auth/Login';
-import Logout from './auth/logout';
 import ForgotPassword from './auth/ForgotPassword';
-import Navbar from './navbar/navbar';
-import Expenses from './pages/expenses';
+import Logout from './auth/logout';
+import Expenses from './pages/Expenses';
 import FilterByTags from './pages/filterbyTags';
-import './styles/App.css';
+import Sidebar from './navbar/sidebar';
 
 function AppLayout() {
   const location = useLocation();
-  const hideNavbarOn = ['/', '/forgot']; 
-
-  const showNavbar = !hideNavbarOn.includes(location.pathname);
+  const hideSidebar = location.pathname === '/' || location.pathname === '/forgot';
 
   return (
-    <>
-      {showNavbar && <Navbar />}
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/forgot" element={<ForgotPassword />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/expenses" element={<Expenses />} />
-        <Route path="/filter" element={<FilterByTags />} />
-      </Routes>
-    </>
+    <div className="app-container">
+      {!hideSidebar && <Sidebar />}
+      <div className={hideSidebar ? 'content-full' : 'content-with-sidebar'}>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/forgot" element={<ForgotPassword />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/expenses" element={<Expenses />} />
+          <Route path="/filter" element={<FilterByTags />} />
+        </Routes>
+      </div>
+    </div>
   );
 }
 

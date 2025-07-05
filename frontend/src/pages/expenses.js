@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/App.css";
 
 function Expenses() {
@@ -6,9 +7,18 @@ function Expenses() {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [expenses, setExpenses] = useState([]);
+  const navigate = useNavigate();
+
   const userId = localStorage.getItem("userId");
 
-  // 🔁 Fetch all expenses for this user
+  useEffect(() => {
+    if (!userId) {
+      navigate("/");
+    } else {
+      fetchExpenses();
+    }
+  }, []); 
+
   const fetchExpenses = async () => {
     try {
       const res = await fetch(`https://money-manager-production-7bea.up.railway.app/expenses?userId=${userId}`);
@@ -17,7 +27,7 @@ function Expenses() {
       if (res.ok) {
         setExpenses(data);
       } else {
-        alert("Failed to fetch expenses");
+        alert(data.message || "Failed to fetch expenses");
       }
     } catch (err) {
       console.error("Error fetching expenses:", err);
@@ -25,7 +35,6 @@ function Expenses() {
     }
   };
 
-  // ➕ Submit a new expense
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -51,11 +60,10 @@ function Expenses() {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Expense added");
         setAmount("");
         setCategory("");
         setDescription("");
-        fetchExpenses(); // refresh list
+        fetchExpenses();
       } else {
         alert(data.message || "Failed to add expense");
       }
@@ -64,18 +72,6 @@ function Expenses() {
       alert("Error submitting expense");
     }
   };
-
-  // ⏳ On load, fetch expenses
-  useEffect(() => {
-    if (userId) {
-      fetchExpenses();
-    }
-  }, [userId]);
-
-  // 🚫 Not logged in case
-  if (!userId) {
-    return <p>Please login first.</p>;
-  }
 
   return (
     <div className="expenses-container">
@@ -89,7 +85,7 @@ function Expenses() {
         />
         <input
           type="text"
-          placeholder="Category (e.g. Food, Travel)"
+          placeholder="Category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         />
@@ -104,13 +100,18 @@ function Expenses() {
 
       <h3>Your Expenses</h3>
       {Array.isArray(expenses) && expenses.length > 0 ? (
-        <ul>
-          {expenses.map((exp, index) => (
-            <li key={index}>
-              ₹{exp.amount} - {exp.category} - {exp.description}
-            </li>
-          ))}
-        </ul>
+       <ul>
+       {expenses.map((exp, index) => {
+         console.log("Expense item:", exp); 
+     
+         return (
+           <li key={index}>
+             ₹{String(exp.amount)} - {String(exp.category)} - {String(exp.description)}
+           </li>
+         );
+       })}
+     </ul>
+     
       ) : (
         <p>No expenses found.</p>
       )}
