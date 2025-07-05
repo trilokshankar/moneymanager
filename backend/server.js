@@ -9,7 +9,7 @@ const User = require("./user");
 const app = express();
 
 app.use(cors({
-  origin: "https://money-manager-coral.vercel.app/",
+  origin: "https://money-manager-coral.vercel.app",
   credentials: true
 }));
 app.use(express.json());
