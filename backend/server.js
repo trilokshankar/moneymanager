@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
-const Money = require("./money"); 
+const Money = require("./money");
 const User = require("./user");
 
 const app = express();
@@ -18,7 +18,6 @@ mongoose.connect("mongodb+srv://xyz:123@money.4yejspr.mongodb.net/?retryWrites=t
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error(err));
 
-// Authentication Routes
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username, password });
@@ -35,7 +34,7 @@ app.post("/signup", async (req, res) => {
   if (exists) return res.status(400).json({ message: "User already exists" });
   const newUser = new User({ username, password });
   await newUser.save();
-  res.json({ success: true, userId: newUser._id }); 
+  res.json({ success: true, userId: newUser._id });
 });
 
 app.post("/forgot-password", async (req, res) => {
@@ -48,7 +47,6 @@ app.post("/forgot-password", async (req, res) => {
   res.json({ success: true, message: "Password updated successfully" });
 });
 
-// Expense Routes
 app.get("/expenses", async (req, res) => {
   const { userId } = req.query;
   const expenses = await Money.find({ userId });
@@ -56,8 +54,8 @@ app.get("/expenses", async (req, res) => {
 });
 
 app.post("/expenses", async (req, res) => {
-  const { amount, category, tag, note, userId } = req.body;
-  const newExpense = new Money({ amount, category, tag, note, userId });
+  const { amount, category, tag, description, userId } = req.body;
+  const newExpense = new Money({ amount, category, tag, description, userId });
   await newExpense.save();
   res.json(newExpense);
 });
@@ -69,7 +67,7 @@ app.put("/expenses/:id", async (req, res) => {
   expense.amount = req.body.amount ?? expense.amount;
   expense.category = req.body.category ?? expense.category;
   expense.tag = req.body.tag ?? expense.tag;
-  expense.note = req.body.note ?? expense.note;
+  expense.description = req.body.description ?? expense.description;
 
   await expense.save();
   res.json(expense);
@@ -92,4 +90,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
-

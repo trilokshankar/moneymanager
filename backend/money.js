@@ -4,7 +4,7 @@ const moneySchema = new mongoose.Schema({
   amount: Number,
   category: String,
   tag: String,
-  note: String,
+  description: String,
   userId: String,
   date: { type: Date, default: Date.now },
 });

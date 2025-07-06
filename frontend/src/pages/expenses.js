@@ -17,7 +17,7 @@ function Expenses() {
     } else {
       fetchExpenses();
     }
-  }, []); 
+  }, []);
 
   const fetchExpenses = async () => {
     try {
@@ -53,7 +53,7 @@ function Expenses() {
           userId,
           amount,
           category,
-          description  // Make sure backend uses this field
+          description 
         })
       });
 
