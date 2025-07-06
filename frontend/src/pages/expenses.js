@@ -53,7 +53,7 @@ function Expenses() {
           userId,
           amount,
           category,
-          description
+          description  // Make sure backend uses this field
         })
       });
 
@@ -100,18 +100,13 @@ function Expenses() {
 
       <h3>Your Expenses</h3>
       {Array.isArray(expenses) && expenses.length > 0 ? (
-       <ul>
-       {expenses.map((exp, index) => {
-         console.log("Expense item:", exp); 
-     
-         return (
-           <li key={index}>
-             ₹{String(exp.amount)} - {String(exp.category)} - {String(exp.description)}
-           </li>
-         );
-       })}
-     </ul>
-     
+        <ul>
+          {expenses.map((exp, index) => (
+            <li key={index}>
+              ₹{exp.amount} - {exp.category} - {exp.description || "No description"}
+            </li>
+          ))}
+        </ul>
       ) : (
         <p>No expenses found.</p>
       )}

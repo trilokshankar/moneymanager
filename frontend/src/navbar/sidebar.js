@@ -9,6 +9,7 @@ function Sidebar() {
       <nav>
         <Link to="/expenses">Add Expense</Link>
         <Link to="/filter">Filter by Tags</Link>
+        <Link to="/allexpenses">All Expenses</Link>
         <Link to="/logout">Logout</Link>
       </nav>
     </div>
