@@ -1,4 +1,4 @@
-/* Sidebar as a vertical navigation bar */
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -40,13 +40,11 @@
     color: white;
   }
   
-  /* Main content should have a left margin to avoid overlapping */
   .main-content {
-    margin-left: 240px; /* 220 + some spacing */
+    margin-left: 240px; 
     padding: 2rem;
   }
   
-  /* Responsive: stack sidebar on top */
   @media (max-width: 768px) {
     .sidebar {
       position: relative;
@@ -74,4 +72,3 @@
       padding: 1rem;
     }
   }
-      

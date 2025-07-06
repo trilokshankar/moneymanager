@@ -53,7 +53,7 @@ function Expenses() {
           userId,
           amount,
           category,
-          description 
+          description
         })
       });
 
@@ -63,6 +63,7 @@ function Expenses() {
         setAmount("");
         setCategory("");
         setDescription("");
+        alert("Expense added successfully");
         fetchExpenses();
       } else {
         alert(data.message || "Failed to add expense");
@@ -103,8 +104,8 @@ function Expenses() {
         <ul>
           {expenses.map((exp, index) => (
             <li key={index}>
-            ₹{exp.amount} - {exp.category} - {exp.description || "No description"}
-          </li>          
+              ₹{exp.amount} - {exp.category} - {exp.description || "No description"}
+            </li>
           ))}
         </ul>
       ) : (

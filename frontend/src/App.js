@@ -6,6 +6,7 @@ import Logout from './auth/logout';
 import Expenses from './pages/Expenses';
 import FilterByTags from './pages/filterbyTags';
 import Sidebar from './navbar/sidebar';
+import AllExpenses from './pages/AllExpenses';
 
 function AppLayout() {
   const location = useLocation();
@@ -20,6 +21,7 @@ function AppLayout() {
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/expenses" element={<Expenses />} />
+          <Route path="/all-expenses" element={<AllExpenses/>}/>
           <Route path="/filter" element={<FilterByTags />} />
         </Routes>
       </div>

@@ -86,7 +86,25 @@ app.delete("/expenses/:id", async (req, res) => {
   await expense.deleteOne();
   res.json({ success: true });
 });
-
+app.get("/filter", async (req, res) => {
+    const { userId, category } = req.query;
+  
+    if (!userId || !category) {
+      return res.status(400).json({ message: "Missing userId or category" });
+    }
+  
+    try {
+      const expenses = await Money.find({
+        userId,
+        category: { $regex: new RegExp(category, "i") }  
+      });
+      res.json(expenses);
+    } catch (err) {
+      console.error("Filter error:", err);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+  
 app.get("/", (req, res) => {
   res.send("API is running");
 });
