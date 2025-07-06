@@ -103,8 +103,8 @@ function Expenses() {
         <ul>
           {expenses.map((exp, index) => (
             <li key={index}>
-              ₹{exp.amount} - {exp.category} - {exp.description || "No description"}
-            </li>
+            ₹{exp.amount} - {exp.category} - {exp.description || "No description"}
+          </li>          
           ))}
         </ul>
       ) : (

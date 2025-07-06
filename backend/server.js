@@ -55,23 +55,29 @@ app.get("/expenses", async (req, res) => {
 
 app.post("/expenses", async (req, res) => {
   const { amount, category, tag, description, userId } = req.body;
-  const newExpense = new Money({ amount, category, tag, description, userId });
+  const newExpense = new Money({
+    amount,
+    category,
+    tag,
+    description,
+    userId
+  });
   await newExpense.save();
   res.json(newExpense);
 });
 
 app.put("/expenses/:id", async (req, res) => {
-  const expense = await Money.findById(req.params.id);
-  if (!expense) return res.status(404).json({ message: "Expense not found" });
-
-  expense.amount = req.body.amount ?? expense.amount;
-  expense.category = req.body.category ?? expense.category;
-  expense.tag = req.body.tag ?? expense.tag;
-  expense.description = req.body.description ?? expense.description;
-
-  await expense.save();
-  res.json(expense);
-});
+    const expense = await Money.findById(req.params.id);
+    if (!expense) return res.status(404).json({ message: "Expense not found" });
+  
+    expense.amount = req.body.amount ?? expense.amount;
+    expense.category = req.body.category ?? expense.category;
+    expense.tag = req.body.tag ?? expense.tag;
+    expense.description = req.body.description ?? expense.description;
+  
+    await expense.save();
+    res.json(expense);
+  });  
 
 app.delete("/expenses/:id", async (req, res) => {
   const expense = await Money.findById(req.params.id);
