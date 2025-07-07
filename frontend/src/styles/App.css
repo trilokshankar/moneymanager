@@ -33,7 +33,7 @@ body {
 }
 
 .expense-form button {
-  background-color: #4a90e2;
+  background-color: #dd2c2c;
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -44,13 +44,13 @@ body {
 }
 
 .expense-form button:hover {
-  background-color: #357acc;
+  background-color: #6a0404;
 }
 
 .expenses-container h2,
 .expenses-container h3 {
   text-align: center;
-  color: #4a90e2;
+  color: #dd2c2c;
   margin-bottom: 1.5rem;
 }
 
@@ -64,12 +64,14 @@ li {
   border-radius: 15px;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  justify-content: space-evenly;
+  align-items: auto;
+  gap: 25px;
+}
+li button{
+  margin-left: 20px;
 }
 
 li span {
@@ -93,12 +95,43 @@ li span {
 }
 
 .expense-actions button.edit {
-  background-color: #4caf50;
+  background-color: #dd2c2c;
 }
 
 .expense-actions button:hover {
   opacity: 0.9;
 }
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 240px; 
+  background-color: #e6f0ff;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.content-with-sidebar {
+  flex: 1;
+  padding: 2rem;
+  background-color: #e6f0ff;
+  min-height: 100vh;
+  margin-left: 240px;
+  box-sizing: border-box;
+}
+
+.content-full {
+  flex: 1;
+  padding: 2rem;
+  background-color: #e6f0ff;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
 
 @media (max-width: 768px) {
   .expenses-container {
@@ -119,13 +152,14 @@ li span {
     width: 100%;
     justify-content: flex-end;
   }
-}
+  .app-container {
+    flex-direction: column;
+  }
 
-.main-content {
-  flex: 1;
-  padding: 2rem;
-  margin-left: 240px; 
-  background-color: #e6f0ff;
-  min-height: 100vh;
-  box-sizing: border-box;
+  .main-content,
+  .content-with-sidebar,
+  .content-full {
+    margin-left: 0;
+    padding: 1rem;
+  }
 }

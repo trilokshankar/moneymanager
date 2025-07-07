@@ -7,11 +7,11 @@ function Sidebar() {
     <div className="sidebar">
       <h2>Money Manager</h2>
       <nav>
-        <Link to="/expenses">Add Expense</Link>
-        <Link to="/filter">Filter by Tags</Link>
         <Link to="/all-expenses">All Expenses</Link>
-        <Link to="/logout">Logout</Link>
+        <Link to="/expenses">Add Expense</Link>
+        <Link to="/filter">Filter by Category</Link>
         <Link to="/distribution">Track your expenses</Link>
+        <Link to="/logout">Logout</Link>
       </nav>
     </div>
   );

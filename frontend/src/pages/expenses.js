@@ -1,134 +1,134 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import "../styles/App.css";
+    import React, { useState, useEffect } from "react";
+    import { useNavigate } from "react-router-dom";
+    import "../styles/App.css";
 
-function Expenses() {
-  const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
-  const [expenses, setExpenses] = useState([]);
-  const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");
+    function Expenses() {
+    const [amount, setAmount] = useState("");
+    const [category, setCategory] = useState("");
+    const [description, setDescription] = useState("");
+    const [date, setDate] = useState("");
+    const [expenses, setExpenses] = useState([]);
+    const navigate = useNavigate();
+    const userId = localStorage.getItem("userId");
 
-  useEffect(() => {
-    if (!userId) {
-      navigate("/");
-    } else {
-      fetchExpenses();
-    }
-  }, []);
-
-  const fetchExpenses = async () => {
-    try {
-      const res = await fetch(
-        `https://money-manager-production-7bea.up.railway.app/expenses?userId=${userId}`
-      );
-      const data = await res.json();
-      if (res.ok) {
-        setExpenses(data);
-      } else {
-        alert(data.message || "Failed to fetch expenses");
-      }
-    } catch (err) {
-      console.error("Error fetching expenses:", err);
-      alert("Error fetching expenses");
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!amount || !category || !description) {
-      alert("Please fill in all fields");
-      return;
-    }
-
-    try {
-      const res = await fetch(
-        "https://money-manager-production-7bea.up.railway.app/expenses",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userId,
-            amount,
-            category,
-            description,
-            date
-          })
-        }
-      );
-      const data = await res.json();
-      if (res.ok) {
-        setAmount("");
-        setCategory("");
-        setDescription("");
-        setDate("");
-        alert("Expense added successfully");
+    useEffect(() => {
+        if (!userId) {
+        navigate("/");
+        } else {
         fetchExpenses();
-      } else {
-        alert(data.message || "Failed to add expense");
-      }
-    } catch (err) {
-      console.error("Error submitting expense:", err);
-      alert("Error submitting expense");
+        }
+    }, []);
+
+    const fetchExpenses = async () => {
+        try {
+        const res = await fetch(
+            `https://money-manager-production-7bea.up.railway.app/expenses?userId=${userId}`
+        );
+        const data = await res.json();
+        if (res.ok) {
+            setExpenses(data);
+        } else {
+            alert(data.message || "Failed to fetch expenses");
+        }
+        } catch (err) {
+        console.error("Error fetching expenses:", err);
+        alert("Error fetching expenses");
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!amount || !category || !description) {
+        alert("Please fill in all fields");
+        return;
+        }
+
+        try {
+        const res = await fetch(
+            "https://money-manager-production-7bea.up.railway.app/expenses",
+            {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                userId,
+                amount,
+                category,
+                description,
+                date
+            })
+            }
+        );
+        const data = await res.json();
+        if (res.ok) {
+            setAmount("");
+            setCategory("");
+            setDescription("");
+            setDate("");
+            alert("Expense added successfully");
+            fetchExpenses();
+        } else {
+            alert(data.message || "Failed to add expense");
+        }
+        } catch (err) {
+        console.error("Error submitting expense:", err);
+        alert("Error submitting expense");
+        }
+    };
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("en-IN", {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+        });
+    };
+
+    return (
+        <div className="expenses-container">
+        <h2>Add Expense</h2>
+        <form onSubmit={handleSubmit} className="expense-form">
+            <input
+            type="number"
+            placeholder="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            />
+            <input
+            type="text"
+            placeholder="Category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            />
+            <input
+            type="text"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            />
+            <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            />
+            <button type="submit">Submit Expense</button>
+        </form>
+
+        <h3>Your Expenses</h3>
+        {Array.isArray(expenses) && expenses.length > 0 ? (
+            <ul>
+            {expenses.map((exp, index) => (
+                <li key={index}>
+                ₹{exp.amount} - {exp.category} - {exp.description || "No description"} -{" "}
+                <strong>{formatDate(exp.date)}</strong>
+                </li>
+            ))}
+            </ul>
+        ) : (
+            <p>No expenses found.</p>
+        )}
+        </div>
+    );
     }
-  };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-IN", {
-      year: "numeric",
-      month: "short",
-      day: "numeric"
-    });
-  };
-
-  return (
-    <div className="expenses-container">
-      <h2>Add Expense</h2>
-      <form onSubmit={handleSubmit} className="expense-form">
-        <input
-          type="number"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-        <button type="submit">Submit Expense</button>
-      </form>
-
-      <h3>Your Expenses</h3>
-      {Array.isArray(expenses) && expenses.length > 0 ? (
-        <ul>
-          {expenses.map((exp, index) => (
-            <li key={index}>
-              ₹{exp.amount} - {exp.category} - {exp.description || "No description"} -{" "}
-              <strong>{formatDate(exp.date)}</strong>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No expenses found.</p>
-      )}
-    </div>
-  );
-}
-
-export default Expenses;
+    export default Expenses;

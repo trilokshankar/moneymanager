@@ -80,6 +80,15 @@ function AllExpenses() {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    });
+  };
+
   return (
     <div className="expenses-container">
       <h2>All Expenses</h2>
@@ -115,7 +124,7 @@ function AllExpenses() {
                 </div>
               ) : (
                 <div>
-                  ₹{expense.amount} - {expense.category} - {expense.description || "No description"}
+                  ₹{expense.amount} - {expense.category} - {expense.description || "No description"} - <strong>{formatDate(expense.date)}</strong>
                   <button onClick={() => handleEditClick(expense)}>Edit</button>
                   <button onClick={() => handleDelete(expense._id)}>Delete</button>
                 </div>

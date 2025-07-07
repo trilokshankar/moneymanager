@@ -19,7 +19,7 @@
   
   .login-box h2 {
     margin-bottom: 2rem;
-    color: #4a90e2;
+    color: #dd2c2c;
   }
   
   .login-box input {
@@ -35,7 +35,7 @@
     width: 100%;
     padding: 1rem;
     margin-bottom: 1rem;
-    background-color: #4a90e2;
+    background-color: #dd2c2c;
     color: white;
     border: none;
     border-radius: 10px;
@@ -45,6 +45,6 @@
   }
   
   .login-box button:hover {
-    background-color: #357acc;
+    background-color:#660b0b;
   }
   
