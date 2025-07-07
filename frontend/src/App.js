@@ -7,6 +7,7 @@ import Expenses from './pages/Expenses';
 import FilterByTags from './pages/filterbyTags';
 import Sidebar from './navbar/sidebar';
 import AllExpenses from './pages/AllExpenses';
+import Distribution from './pages/Distribution';
 
 function AppLayout() {
   const location = useLocation();
@@ -23,6 +24,7 @@ function AppLayout() {
           <Route path="/expenses" element={<Expenses />} />
           <Route path="/all-expenses" element={<AllExpenses/>}/>
           <Route path="/filter" element={<FilterByTags />} />
+          <Route path="/distribution" element={<Distribution/>}/>
         </Routes>
       </div>
     </div>

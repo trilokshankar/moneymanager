@@ -23,17 +23,25 @@ function AllExpenses() {
       setExpenses(data);
     } catch (err) {
       console.error("Error fetching expenses:", err);
+      alert("Failed to fetch expenses");
     }
   };
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`https://money-manager-production-7bea.up.railway.app/expenses/${id}`, {
+      const res = await fetch(`https://money-manager-production-7bea.up.railway.app/expenses/${id}`, {
         method: "DELETE"
       });
-      fetchExpenses();
+
+      if (res.ok) {
+        alert("Expense deleted successfully!");
+        fetchExpenses();
+      } else {
+        alert("Failed to delete expense");
+      }
     } catch (err) {
       console.error("Error deleting expense:", err);
+      alert("Error deleting expense");
     }
   };
 
@@ -53,15 +61,22 @@ function AllExpenses() {
 
   const handleEditSubmit = async (id) => {
     try {
-      await fetch(`https://money-manager-production-7bea.up.railway.app/expenses/${id}`, {
+      const res = await fetch(`https://money-manager-production-7bea.up.railway.app/expenses/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
       });
-      setEditId(null);
-      fetchExpenses();
+
+      if (res.ok) {
+        alert("Expense updated successfully!");
+        setEditId(null);
+        fetchExpenses();
+      } else {
+        alert("Failed to update expense");
+      }
     } catch (err) {
       console.error("Error updating expense:", err);
+      alert("Error updating expense");
     }
   };
 
