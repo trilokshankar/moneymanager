@@ -6,9 +6,9 @@ function Expenses() {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+  const [date, setDate] = useState("");
   const [expenses, setExpenses] = useState([]);
   const navigate = useNavigate();
-
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
@@ -21,9 +21,10 @@ function Expenses() {
 
   const fetchExpenses = async () => {
     try {
-      const res = await fetch(`https://money-manager-production-7bea.up.railway.app/expenses?userId=${userId}`);
+      const res = await fetch(
+        `https://money-manager-production-7bea.up.railway.app/expenses?userId=${userId}`
+      );
       const data = await res.json();
-
       if (res.ok) {
         setExpenses(data);
       } else {
@@ -37,32 +38,32 @@ function Expenses() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!amount || !category || !description) {
       alert("Please fill in all fields");
       return;
     }
 
     try {
-      const res = await fetch("https://money-manager-production-7bea.up.railway.app/expenses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          userId,
-          amount,
-          category,
-          description
-        })
-      });
-
+      const res = await fetch(
+        "https://money-manager-production-7bea.up.railway.app/expenses",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId,
+            amount,
+            category,
+            description,
+            date
+          })
+        }
+      );
       const data = await res.json();
-
       if (res.ok) {
         setAmount("");
         setCategory("");
         setDescription("");
+        setDate("");
         alert("Expense added successfully");
         fetchExpenses();
       } else {
@@ -72,6 +73,15 @@ function Expenses() {
       console.error("Error submitting expense:", err);
       alert("Error submitting expense");
     }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    });
   };
 
   return (
@@ -96,6 +106,11 @@ function Expenses() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
         <button type="submit">Submit Expense</button>
       </form>
 
@@ -104,7 +119,8 @@ function Expenses() {
         <ul>
           {expenses.map((exp, index) => (
             <li key={index}>
-              ₹{exp.amount} - {exp.category} - {exp.description || "No description"}
+              ₹{exp.amount} - {exp.category} - {exp.description || "No description"} -{" "}
+              <strong>{formatDate(exp.date)}</strong>
             </li>
           ))}
         </ul>

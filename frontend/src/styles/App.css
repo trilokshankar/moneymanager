@@ -1,146 +1,131 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #e6f0ff;
+  color: #333;
+}
+
 .expenses-container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  }
-  
-  .expenses-container h2,
-  .expenses-container h3 {
-    text-align: center;
-    color: #4a90e2;
-    margin-bottom: 1.5rem;
-  }
-  
-  .expense-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .expense-form input[type="text"],
-  .expense-form input[type="number"] {
-    padding: 0.7rem 1rem;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-  }
-  
-  .expense-form button {
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    padding: 0.7rem 1rem;
-    border-radius: 10px;
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-  
-  .expense-form button:hover {
-    background-color: #357acc;
-  }
-  
-  ul {
-    list-style: none;
-    padding-left: 0;
-    margin-top: 1rem;
-  }
-  
-  li {
-    padding: 0.8rem 1rem;
-    background-color: #f7faff;
-    border-radius: 10px;
-    margin-bottom: 0.5rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.95rem;
-  }
-  
-  @media (max-width: 600px) {
-    .expenses-container {
-      margin: 1rem;
-      padding: 1.5rem;
-    }
-  
-    .expense-form input,
-    .expense-form button {
-      width: 100%;
-    }
-  
-    li {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  }
-  .filter-container {
-    max-width: 500px;
-    margin: 3rem auto;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0px 0px 12px rgba(0,0,0,0.1);
-    text-align: center;
-  }
-  
-  .filter-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-  }
-  
-  .filter-form input {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .filter-form button {
-    padding: 10px;
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .filtered-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .filtered-list li {
-    padding: 8px 0;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .distribution-container {
-    max-width: 600px;
-    margin: auto;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.expense-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.expense-form input[type="text"],
+.expense-form input[type="number"],
+.expense-form input[type="date"] {
+  flex: 1 1 180px;
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+}
+
+.expense-form button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.expense-form button:hover {
+  background-color: #357acc;
+}
+
+.expenses-container h2,
+.expenses-container h3 {
+  text-align: center;
+  color: #4a90e2;
+  margin-bottom: 1.5rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background-color: #fdfdfd;
+  border-radius: 15px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+li span {
+  flex: 1;
+  min-width: 120px;
+}
+
+.expense-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.expense-actions button {
+  background-color: #f44336;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.expense-actions button.edit {
+  background-color: #4caf50;
+}
+
+.expense-actions button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .expenses-container {
+    margin: 1rem;
     padding: 1rem;
-    background-color: white;
-    border-radius: 10px;
   }
-  
-  .date-filter {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+
+  .expense-form {
+    flex-direction: column;
   }
-  
-  .date-filter input {
-    margin-left: 0.5rem;
-    margin-right: 1rem;
+
+  li {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
+
+  .expense-actions {
+    width: 100%;
+    justify-content: flex-end;
   }
-  
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 240px; 
+  background-color: #e6f0ff;
+  min-height: 100vh;
+  box-sizing: border-box;
+}

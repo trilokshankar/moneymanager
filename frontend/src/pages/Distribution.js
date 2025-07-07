@@ -42,7 +42,6 @@ function Distribution() {
     if (fromDate && toDate) {
       fetchExpenses();
     }
-    // eslint-disable-next-line
   }, [fromDate, toDate]);
 
   return (

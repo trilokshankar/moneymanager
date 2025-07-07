@@ -11,6 +11,7 @@ function Sidebar() {
         <Link to="/filter">Filter by Tags</Link>
         <Link to="/all-expenses">All Expenses</Link>
         <Link to="/logout">Logout</Link>
+        <Link to="/distribution">Track your expenses</Link>
       </nav>
     </div>
   );

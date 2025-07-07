@@ -4,9 +4,10 @@ const moneySchema = new mongoose.Schema({
   amount: Number,
   category: String,
   tag: String,
-  description: String, 
+  description: String,
   userId: String,
-  date: { type: Date, default: Date.now },
+  date: { type: Date, default: Date.now } 
 });
+
 
 module.exports = mongoose.model('Money', moneySchema);
