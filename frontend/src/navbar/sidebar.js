@@ -1,8 +1,16 @@
+import "./sidebar.css";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/sidebar.css";
 
 function Sidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    navigate("/");
+  };
+
   return (
     <div className="sidebar">
       <h2>Money Manager</h2>
@@ -11,7 +19,7 @@ function Sidebar() {
         <Link to="/expenses">Add Expense</Link>
         <Link to="/filter">Filter by Category</Link>
         <Link to="/distribution">Track your expenses</Link>
-        <Link to="/logout">Logout</Link>
+        <button onClick={handleLogout} className="logout-button">Logout</button>
       </nav>
     </div>
   );
