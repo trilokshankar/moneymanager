@@ -131,6 +131,9 @@ li span {
   min-height: 100vh;
   box-sizing: border-box;
 }
+.expenses-container canvas {
+  margin-top: 2rem;
+}
 
 
 @media (max-width: 768px) {

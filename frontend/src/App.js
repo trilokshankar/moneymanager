@@ -9,6 +9,7 @@ import Sidebar from './navbar/sidebar';
 import AllExpenses from './pages/AllExpenses';
 import Distribution from './pages/Distribution';
 
+
 function AppLayout() {
   const location = useLocation();
   const hideSidebar = location.pathname === '/' || location.pathname === '/forgot';

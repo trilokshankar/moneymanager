@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../styles/App.css";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 function AllExpenses() {
   const [expenses, setExpenses] = useState([]);
@@ -89,9 +93,47 @@ function AllExpenses() {
     });
   };
 
+  const getPieChartData = () => {
+    const categoryTotals = {};
+
+    expenses.forEach((expense) => {
+      const category = expense.category || "Uncategorized";
+      const amount = parseFloat(expense.amount) || 0;
+      categoryTotals[category] = (categoryTotals[category] || 0) + amount;
+    });
+
+    return {
+      labels: Object.keys(categoryTotals),
+      datasets: [
+        {
+          label: "Expenses by Category",
+          data: Object.values(categoryTotals),
+          backgroundColor: [
+            "#4a90e2",
+            "#f06292",
+            "#4db6ac",
+            "#ba68c8",
+            "#ffb74d",
+            "#9575cd",
+            "#81c784"
+          ],
+          borderWidth: 1
+        }
+      ]
+    };
+  };
+
   return (
     <div className="expenses-container">
       <h2>All Expenses</h2>
+
+      {/* 🟣 Pie Chart */}
+      {expenses.length > 0 && (
+        <div style={{ maxWidth: "400px", margin: "0 auto" }}>
+          <Pie data={getPieChartData()} />
+        </div>
+      )}
+
       {expenses.length === 0 ? (
         <p>No expenses found.</p>
       ) : (
@@ -124,7 +166,8 @@ function AllExpenses() {
                 </div>
               ) : (
                 <div>
-                  ₹{expense.amount} - {expense.category} - {expense.description || "No description"} - <strong>{formatDate(expense.date)}</strong>
+                  ₹{expense.amount} - {expense.category} - {expense.description || "No description"} -{" "}
+                  <strong>{formatDate(expense.date)}</strong>
                   <button onClick={() => handleEditClick(expense)}>Edit</button>
                   <button onClick={() => handleDelete(expense._id)}>Delete</button>
                 </div>
